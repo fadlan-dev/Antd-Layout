@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense, lazy } from "react";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
+import FallBackItem from "./components/FallBack";
+import "./scss/style.scss";
+import "antd/dist/antd.css";
 
-function App() {
+const Login = lazy(() => import("./views/Pages/Login"));
+const DefaultLayout = lazy(() => import("./containers"));
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Suspense fallback={<FallBackItem />}>
+        <Switch>
+          <Route
+            exact
+            path="/login"
+            name="Login"
+            render={(props) => <Login {...props} />}
+          />
+          <Route
+            path="/"
+            name="Home"
+            render={(props) => <DefaultLayout {...props} />}
+          />
+        </Switch>
+      </Suspense>
+    </Router>
   );
-}
+};
 
 export default App;
