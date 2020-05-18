@@ -1,5 +1,18 @@
 Antd Layout [React](https://github.com/facebook/create-react-app) + [Antd](https://ant.design/).
 
+## Installation
+
+```bash
+# clone the repo
+$ git clone my-project
+
+# go into app's directory
+$ cd my-project
+
+# install app's dependencies
+$ npm install
+```
+
 ## Available Scripts
 
 In the project directory, you can run:
