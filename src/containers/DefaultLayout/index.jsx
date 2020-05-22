@@ -1,16 +1,17 @@
 import React, { useState, Suspense } from "react";
-import { Redirect, Route, Switch, Link } from "react-router-dom";
-import { Layout, Menu, Breadcrumb } from "antd";
+import { Redirect, Route, Switch } from "react-router-dom";
+import { Layout, Menu, Breadcrumb, Avatar, Dropdown } from "antd";
 import {
-  DashboardFilled,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
+  UserOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
-import routes from "../../routes";
-import { navigation } from "../../_nav";
 import FallBackItem from "../../components/FallBack";
 
-// const { SubMenu } = Menu;
+import routes from "../../routes";
+import { navigation } from "../../_nav";
+
 const { Header, Sider, Content, Footer } = Layout;
 
 const Index = () => {
@@ -21,49 +22,84 @@ const Index = () => {
     setCollapsed(!collapsed);
   };
 
+  const onClickMenu = (name, url) => {
+    setBreadCrumb(name);
+    window.location.replace(`#${url}`);
+  };
+
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="logo" />
-        <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
+        <Menu theme="light" defaultSelectedKeys={["1"]} mode="inline">
           {navigation.map((item, index) => (
+            /* item?.children ? (
+              <SubMenu
+                key={`sub${index + 1}`}
+                icon={item.icon}
+                title={item.name}
+              >
+                {item.children.map((s_item, s_index) => (
+                  <Menu.Item
+                    key={`sub${index + 1}.${s_index + 1}`}
+                    icon={s_item.icon}
+                    onClick={() =>
+                      onClickMenu(`${item.name} / ${s_item.name}`, s_item.url)
+                    }
+                  >
+                    {s_item.name}
+                  </Menu.Item>
+                ))}
+              </SubMenu>
+            ) : ( */
             <Menu.Item
               key={index + 1}
-              icon={<DashboardFilled />}
-              onClick={() => setBreadCrumb(item.name)}
+              icon={item.icon}
+              onClick={() => onClickMenu(item.name, item.url)}
             >
-              <Link to={item.url}>{item.name}</Link>
+              {item.name}
             </Menu.Item>
           ))}
-          {/* <Menu.Item key="1" icon={<DashboardFilled />}>
-            Option 1
-          </Menu.Item>
-          <Menu.Item key="2" icon={<DashboardFilled />}>
-            Option 2
-          </Menu.Item>
-          <SubMenu key="sub1" icon={<DashboardFilled />} title="User">
-            <Menu.Item key="3">Tom</Menu.Item>
-            <Menu.Item key="4">Bill</Menu.Item>
-            <Menu.Item key="5">Alex</Menu.Item>
-          </SubMenu>
-          <SubMenu key="sub2" icon={<DashboardFilled />} title="Team">
-            <Menu.Item key="6">Team 1</Menu.Item>
-            <Menu.Item key="8">Team 2</Menu.Item>
-          </SubMenu> */}
         </Menu>
       </Sider>
       <Layout className="site-layout">
         <Header
           className="site-layout-background"
-          style={{ padding: 0, position: "fixed", width: "100%" }}
+          style={{
+            padding: 0,
+            position: "sticky",
+            top: 0,
+            width: "100%",
+            zIndex: 10,
+          }}
         >
-          {React.createElement(
-            collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
-            {
-              className: "trigger",
-              onClick: toggle,
-            }
-          )}
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div>
+              {React.createElement(
+                collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+                {
+                  className: "trigger",
+                  onClick: toggle,
+                }
+              )}
+            </div>
+            <div className="trigger">
+              <Dropdown
+                overlay={
+                  <Menu>
+                    <Menu.Item
+                      icon={<LogoutOutlined />}
+                      onClick={() => window.location.replace("#/login")}
+                    >
+                      LOGUT
+                    </Menu.Item>
+                  </Menu>
+                }
+              >
+                <Avatar className="user-avatar" icon={<UserOutlined />} />
+              </Dropdown>
+            </div>
+          </div>
         </Header>
         <Breadcrumb>
           <Breadcrumb.Item>Home</Breadcrumb.Item>
@@ -72,9 +108,8 @@ const Index = () => {
           </Breadcrumb.Item>
         </Breadcrumb>
         <Content
-          className="site-layout-background"
           style={{
-            margin: "24px 16px",
+            backgroundColor: "transparent",
             padding: 24,
           }}
         >

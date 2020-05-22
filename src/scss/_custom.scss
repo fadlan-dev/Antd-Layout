@@ -11,7 +11,7 @@
 }
 
 .trigger:hover {
-  color: #1890ff;
+  color: $primary-color;
 }
 
 .logo {
@@ -22,4 +22,51 @@
 
 .site-layout .site-layout-background {
   background: #fff;
+}
+
+.logo {
+  background: $primary-color !important;
+}
+
+.login-logo {
+  width: 120px;
+}
+
+.bg-login {
+  background-image: url("../assets/image//bg.svg");
+  background-repeat: no-repeat;
+  background-position: center 110px;
+  background-size: 100%;
+}
+
+.card-status {
+  background-color: white;
+  padding: 20px;
+  width: 100%;
+  .title {
+    height: 22px;
+    color: rgba(0, 0, 0, 0.45);
+    font-size: 14px;
+    line-height: 22px;
+  }
+  .count {
+    height: 38px;
+    margin-top: 4px;
+    margin-bottom: 0;
+    overflow: hidden;
+    color: rgba(0, 0, 0, 0.85);
+    font-size: 30px;
+    line-height: 38px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: break-all;
+  }
+}
+
+.user-avatar {
+  background-color: $primary-color !important;
+}
+
+.mt-20 {
+  margin-top: 20px !important;
 }
