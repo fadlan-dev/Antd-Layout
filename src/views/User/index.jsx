@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
 const index = () => {
-  return <div>User</div>;
+  return <div>User 1</div>;
 };
 
 export default index;
