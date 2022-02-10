@@ -12,7 +12,7 @@
     "antd": "^4.9.1",
     "craco-less": "^1.16.0",
     "moment": "^2.25.3",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
